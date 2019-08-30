@@ -4,6 +4,7 @@
   "description": "Discord bot for music server",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,6 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "dotenv": "^8.1.0",
-    "googleapis": "^42.0.0"
+    "youtube-search": "^1.1.4"
   }
 }
