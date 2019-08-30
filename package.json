@@ -18,6 +18,7 @@
   "homepage": "https://github.com/fossforlife/discordbot2#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
-    "dotenv": "^8.1.0"
+    "dotenv": "^8.1.0",
+    "googleapis": "^42.0.0"
   }
 }
