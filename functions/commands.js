@@ -1,8 +1,22 @@
 const ytsearch = require('youtube-search');
+const { google } = require('googleapis');
 
 module.exports = {
   share: async (query) => {
-    let opts = {
+    const youtube = google.youtube({
+      version: 'v3',
+      auth: process.env.YOUTUBE_API_KEY
+    });
+
+    // console.log(query);
+    const res = await youtube.search.list({
+      part: 'id,snippet',
+      q: query
+    });
+    console.dir(res.data.items[0]);
+    return `https://youtube.com/watch?v=${res.data.items[0].id.videoId}`;
+
+    /* let opts = {
       maxResults: 10,
       key: process.env.YOUTUBE_API_KEY
     };
@@ -11,7 +25,7 @@ module.exports = {
     .then(result => {
       console.log(result);
       return 'Search success';
-    });
+    }); */
     
     // msg.reply(`you searched for ${query}`);
     // add emoticons
