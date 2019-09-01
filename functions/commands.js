@@ -1,7 +1,41 @@
-const ytsearch = require('youtube-search');
 const { google } = require('googleapis');
 
+const ytPattern = /<@[0-9]*>, https:\/\/youtube.com\/watch/;
+
 module.exports = {
+  leaderboard: async (time, channels, msgLimit = 10) => {
+    const musicCategory = '614915929515622459';
+    const musicChannel = '614915777115586572';
+    let allMessages = [];
+    
+    // for(let channel in channels.entries().array()) {
+    //   // if(key === '614915777115586572' || value.parentID === '614915929515622459') {
+    //   if(channel.key === '616749911374954526') {
+    //     let messages = await channel.value.fetchMessages({limit: msgLimit});
+    //     for(let message in messages.values().array()) {
+    //       if(message.content.match(ytPattern) !== null) {
+    //         if(message.reactions.get('🤘') && message.reactions.get('🤘').count > 1) {
+    //           console.log(message.reactions.get('🤘').count);
+    //           allMessages.push({
+    //             title: message.embeds[0].title,
+    //             // user: message.mentions.users.values().next().value,
+    //             user: message.mentions.users.first(),
+    //             count: message.reactions.get('🤘').count - 1
+    //           });
+    //         }
+    //       }  
+    //     }
+    //   }
+    // }
+
+    // allMessages = allMessages.sort((a, b) => b.count - a.count);
+    // let returnValue = '```\n';
+    // returnValue += allMessages.map(({user, title, count}) => {
+    //   return `**${user}**: ${title} (${count})`;
+    // }).join('\n');
+    // return returnValue + '\n```';
+    return 'leaderboards not implemented yet';
+  },
   share: async (query) => {
     const youtube = google.youtube({
       version: 'v3',
@@ -9,25 +43,10 @@ module.exports = {
     });
 
     // console.log(query);
-    const res = await youtube.search.list({
+    return youtube.search.list({
       part: 'id,snippet',
       q: query
-    });
-    console.dir(res.data.items[0]);
-    return `https://youtube.com/watch?v=${res.data.items[0].id.videoId}`;
-
-    /* let opts = {
-      maxResults: 10,
-      key: process.env.YOUTUBE_API_KEY
-    };
-
-    return ytsearch(query, opts)
-    .then(result => {
-      console.log(result);
-      return 'Search success';
-    }); */
-    
-    // msg.reply(`you searched for ${query}`);
-    // add emoticons
+    })
+    .then(res => `https://youtube.com/watch?v=${res.data.items[0].id.videoId}`);
   }
 }
